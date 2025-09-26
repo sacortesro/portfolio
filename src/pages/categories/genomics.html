@@ -1,0 +1,256 @@
+<!-- trimmomatic, bwa, samtools, tablet,  velvet, megahit, bowtie,  galaxy-->
+ <div class="tool-category" id="genomics">
+    <div class="category-header">
+        <h2>Genomics</h2>
+        <p>Tools and techniques for analyzing genomic data, including sequencing, assembly, and annotation.</p>
+    </div>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">Trimmomatic</div>
+                    <span class="tool-type">Read Trimming</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                A flexible read trimming tool for Illumina NGS data. I use it to remove low-quality bases and adapter sequences from raw reads.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Adapter removal</li>
+                    <li>Quality filtering</li>
+                    <li>Sliding window trimming</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# Trimmomatic command example with sliding window and quality filtering
+# Cuts when average quality in a sliding window of 3 bases drops below 17
+trimmomatic PE -phred33 WH_R1.fastq WH_R2.fastq trim/1.R1_clean.fastq trim/1.R1_unpaired.fastq trim/1.R2_clean.fastq
+trim/1.R2_unpaired.fastq SLIDINGWINDOW:3:17 LEADING:20 TRAILING:20 MINLEN:31
+
+# Trimmomatic command example with maxinfo
+# Usefull for paired-end reads with uneven quality
+trimmomatic PE -phred33 WH_R1.fastq WH_R2.fastq trim/1.R1_clean.fastq trim/1.R1_unpaired.fastq trim/1.R2_clean.fastq
+trim/1.R2_unpaired.fastq MAXINFO:40:0.5 MINLEN:31
+            </div>
+            <div class="tool-links">
+                <a href="http://www.usadellab.org/cms/?page=trimmomatic" class="tool-link">Trimmomatic</a>
+                <a href="#" class="tool-link">My Trimmomatic Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">BWA (Burrows-Wheeler Aligner)</div>
+                    <span class="tool-type">Alignment</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                BWA is a fast and accurate read aligner for short reads. I use it for mapping sequencing reads to reference genomes.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Mapping short reads to reference genomes</li>
+                    <li>Handling paired-end reads</li>
+                    <li>Generating SAM/BAM files for downstream analysis</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# BWA index the reference genome
+bwa index mycoplasma_ref.fasta
+# BWA mem for paired-end reads
+bwa mem mycoplasma_ref.fna ERR486840_1.fastq ERR486840_2.fastq > alineamiento.sam
+# BWA mem for single-end reads
+bwa mem mycoplasma_ref.fna ERR486840.fastq > alineamiento.sam
+            </div>
+            <div class="tool-links">
+                <a href="http://bio-bwa.sourceforge.net/" class="tool-link">BWA Documentation</a>
+                <a href="#" class="tool-link">My BWA Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">Samtools</div>
+                    <span class="tool-type">Assembly</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Samtools is a suite of programs for interacting with high-throughput sequencing data.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Manipulating SAM/BAM files</li>
+                    <li>Sorting, indexing, and viewing alignments</li>
+                    <li>Variant calling and filtering</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# Conversion and processing BAM files
+samtools view -S -b alineamiento.sam > alineamiento.bam
+# Sorting BAM files
+samtools sort alineamiento.bam -o alineamiento_sorted.bam
+# Indexing BAM files
+samtools index alineamiento_sorted.bam
+            </div>
+            <div class="tool-links">
+                <a href="https://www.htslib.org/" class="tool-link">Samtools Documentation</a>
+                <a href="#" class="tool-link">BAM Processing Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">Tablet</div>
+                    <span class="tool-type">Visualization</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Tablet is a lightweight viewer for high-throughput sequence assemblies. I use it to visualize alignments and coverage.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Visualizing read alignments</li>
+                    <li>Exploring coverage and variant calls</li>
+                    <li>Interactive genome browsing</li>
+                </ul>
+
+            </div>
+            <div class="code-example" data-language="bash">
+# Open BAM file in Tablet
+tablet alineamiento_sorted.bam mycoplasma_ref.fasta
+            </div>
+            <div class="tool-links">
+                <a href="http://ics.hutton.ac.uk/tablet/" class="tool-link">Tablet Documentation</a>
+                <a href="#" class="tool-link">My Tablet Usage Guide</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">Velvet</div>
+                    <span class="tool-type">De Novo Assembly</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Velvet is a tool for de novo assembly of short reads. I use it for assembling genomes from NGS data. Based on the de Bruijn graph algorithm.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>De novo assembly of short reads</li>
+                    <li>Handling paired-end reads</li>
+                    <li>Generating contigs and scaffolds</li>                    
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# Velvet assembly command
+# velveth: Builds the de Bruijn graph
+
+velveth velvet31 31 -shortPaired -fastq -separate ERR486840_1.fastq ERR486840_2.fastq
+
+# Velvetg: Assembles the graph into contigs
+velvetg velvet31 -exp_cov auto -cov_cutoff auto
+            </div>
+            <div class="tool-links">
+                <a href="https://github.com/dzerbino/velvet" class="tool-link">Velvet Documentation</a>
+                <a href="#" class="tool-link">My Velvet Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">MEGAHIT</div>
+                    <span class="tool-type">Metagenomic Assembly</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                MEGAHIT is a fast and memory-efficient assembler for metagenomic sequencing data. Specially usefull for metagenomic NGS data. Based on conpressed Brujin graph (SdBG).
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>De novo assembly of metagenomic data</li>
+                    <li>Handling large and complex datasets</li>
+                    <li>Generating contigs for downstream analysis</li>
+                    <li>High efficient but can generate fragmented assemblies</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# MEGAHIT assembly command for paired-end reads
+megahit -1 ERR486840_1.fastq -2 ERR486840_2.fastq -o megahit_output
+            </div>
+            <div class="tool-links">
+                <a href="https://github.com/voutcn/megahit" class="tool-link">MEGAHIT Documentation</a>
+                <a href="#" class="tool-link">My MEGAHIT Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">Bowtie2</div>
+                    <span class="tool-type">Alignment</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Bowtie2 is a fast and memory-efficient aligner for short reads. I use it for mapping sequencing reads to reference genomes.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Mapping short reads to reference genomes</li>
+                    <li>Handling gapped alignments</li>
+                    <li>Generating SAM/BAM files for downstream analysis</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# Bowtie2 index the reference genome
+bowtie2-build mycoplasma_ref.fasta mycoplasma_ref
+# Bowtie2 for paired-end reads
+bowtie2 -x mycoplasma_ref -1 ERR486840_1.fastq -2 ERR486840_2.fastq -S alineamiento.sam
+# Bowtie2 for single-end reads
+bowtie2 -x mycoplasma_ref -U ERR486840.fastq -S alineamiento.sam
+            </div>
+            <div class="tool-links">
+                <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" class="tool-link">Bowtie2 Documentation</a>
+                <a href="#" class="tool-link">My Bowtie2 Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">Galaxy</div>
+                    <span class="tool-type">Web-based Platform</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Galaxy is an open, web-based platform for data-intensive biomedical research. I use it for annotation using prokka.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Accessible web-based interface</li>
+                    <li>Reproducible workflows</li>
+                    <li>Integration with various bioinformatics tools</li>
+                    <li>Collaboration and sharing of analyses</li>
+                </ul>
+            </div>            
+            <div class="tool-links">
+                <a href="https://usegalaxy.org" class="tool-link">Galaxy Documentation</a>
+                <a href="#" class="tool-link">My Galaxy Workflows</a>
+            </div>
+        </div>
+
+    </div> <!-- End of tools-grid -->
+ </div>

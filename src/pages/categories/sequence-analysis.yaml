@@ -1,0 +1,50 @@
+---
+blast:
+    - 000:
+        title: "Make local BLAST DB - nucl for fasta in folder"
+        type: "Bash"
+        description: "Create a nucleotide local BLAST database for each file, from FASTA files in a specified directory."
+        code: |  
+            #!/bin/sh
+
+            for i in ../Data/info_genbank/*.fasta
+            do
+            FNAME="${i%.*}"
+            makeblastdb -in $i -dbtype 'nucl' -out $FNAME
+            done
+
+        github_link: null
+        colab_link: null
+    - 001: 
+        title: "Execute BLAST with different parameters and word sizes"
+        type: "Bash"
+        description: "Run BLAST searches using various output formats and word sizes against local databases created from FASTA files."
+        code: | 
+            #!/bin/sh
+
+            parameters="0 1 9"
+            WORD_SIZES="28 64"
+            for genome  in  `ls ../Data/info_genbank/*.*`
+            do
+            name="${genome%.*}"
+            name2=${name#"../Data/info_genbank/"}
+                    for parameter in $parameters
+                    do
+                            for w_size in $WORD_SIZES
+                            do
+                            echo "blastn -query ../Data/query/StartEcoli.fasta -db $name -word_size $w_size -out ../Results/${name2}Start$parameter$w_size.raw -outfmt $parameter"
+                            blastn -query ../Data/query/StartEcoli.fasta -db $name -word_size $w_size -out ../Results/${name2}Start-OP$parameter-w$w_size.raw -outfmt $parameter 
+                            done
+                    done
+            done
+
+        github_link: null
+        colab_link: null        
+    - 002:
+        title: "Execute BLAST with limit of target sequences and e value"
+        type: "Python"
+        description: "Run a BLASTP search with specific parameters including e-value threshold and maximum target sequences."
+        code: |
+            blastp -query proteoma_e_coli.faa -db scerevisiae -outfmt 6 -out aln1.tsv -num_threads 10 -max_hsps 1 -evalue 1e-05 -max_target_seqs 1
+        github_link: null
+        colab_link: null

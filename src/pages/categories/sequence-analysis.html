@@ -1,0 +1,187 @@
+<!-- Blast, biopython, clustalw, hmmer,  fastqc, multiqc -->
+<div class="tool-category active" id="sequence-analysis">
+    <div class="category-header">
+        <h2>Sequence Analysis</h2>
+        <p>Tools for DNA, RNA, and protein sequence manipulation, alignment, and analysis.</p>
+    </div>
+    
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">BLAST (Basic Local Alignment Search Tool)</div>
+                    <span class="tool-type">Alignment</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Essential tool for finding regions of similarity between biological sequences. I use BLAST for homology searches, gene identification, and functional annotation.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Protein and nucleotide sequence similarity searches</li>
+                    <li>Gene identification and annotation</li>
+                    <li>Phylogenetic analysis preparation</li>
+                    <li>Database searches against NCBI databases</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# Make BLAST
+makeblastdb -in subjectdb.fasta -dbtype 'nucl' -out mkdbname
+
+# Basic BLAST search
+blastp -query protein.fasta -db mkdbname -out results.txt -outfmt 6 
+
+# Custom BLAST with specific parameters
+blastn -query sequences.fasta -db mkdbname -evalue 1e-5 -max_target_seqs 10
+            </div>
+            <div class="tool-links">
+                <a href="https://blast.ncbi.nlm.nih.gov/" class="tool-link">NCBI BLAST</a>
+                <a href="#" class="tool-link scripts-link" data-tool="blast">My BLAST Scripts</a>
+                <!-- <a href="#" class="tool-link">My BLAST Scripts</a> -->
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">BioPython</div>
+                    <span class="tool-type">Python Library</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Comprehensive Python library for biological computation. My go-to tool for sequence manipulation, file parsing, and bioinformatics workflows.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>FASTA/FASTQ file parsing and manipulation</li>
+                    <li>Sequence translation and reverse complement</li>
+                    <li>Integration with NCBI databases</li>
+                    <li>Phylogenetic tree construction</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="python">
+from Bio import SeqIO
+from Bio.Seq import Seq
+
+# Parse FASTA file and get basic stats
+sequences = []
+for record in SeqIO.parse("sequences.fasta", "fasta"):
+sequences.append({
+'id': record.id,
+'length': len(record.seq),
+'gc_content': (record.seq.count('G') + record.seq.count('C')) / len(record.seq)
+})
+
+# Translate DNA to protein
+dna_seq = Seq("ATGGCCATTGTAATGGGC")
+protein = dna_seq.translate()
+            </div>
+            <div class="tool-links">
+                <a href="https://biopython.org/" class="tool-link">BioPython Docs</a>
+                <a href="#" class="tool-link">My BioPython Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">Multiple Sequence Alignment (ClustalW)</div>
+                    <span class="tool-type">Alignment</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                Using ClustalW for multiple sequence alignments. Essential for comparative genomics and phylogenetic analysis.
+            </p>
+            <div class="tool-features">
+                <h4>Key applications:</h4>
+                <ul class="features-list">
+                    <li>Extrapolation</li>
+                    <li>Phylogenetics - Reconstruction of evolutive history</li>
+                    <li>Pattern identification</li>
+                    <li>Domain identification</li>
+                    <li>Structures prediction</li>
+                    <li>Primers design</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# ClustalW alignment
+clustalw -infile=sequences.fasta -outfile=alignment.aln
+            </div>
+            <div class="tool-links">
+                <a href="#" class="tool-link">Alignment Scripts</a>
+                <a href="#" class="tool-link">Quality Assessment</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">FastQC/MultiQC</div>
+                    <span class="tool-type">Quality Control and Repor Aggregation</span>
+                </div>                
+            </div>
+            <p class="tool-description">
+                FastQC is a quality control tool for high-throughput sequencing data. I use it to assess the quality of raw sequence data before further analysis.
+                MultiQC is a tool for aggregating results from multiple bioinformatics tools into a single report. I use it to summarize quality control metrics and analysis results.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Quality assessment of raw sequencing reads</li>
+                    <li>Detection of common sequencing issues</li>
+                    <li>Generation of quality control reports</li>
+                    <li>Visualization of read quality metrics</li>
+                    <li>Aggregation of FastQC reports</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# Run FastQC on a FASTQ file
+fastqc sample.fastq -o fastqc_reports
+# Generate HTML report
+fastqc sample.fastq -o fastqc_reports --extract
+
+# MultiQC to aggregate FastQC reports
+multiqc fastqc_reports -o multiqc_report
+# Generate HTML report
+multiqc . -o multiqc_report --force
+            </div>
+            <div class="tool-links">
+                <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/" class="tool-link">FastQC</a>
+                <a href="#" class="tool-link">My FastQC Scripts</a>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-header">
+                <div>
+                    <div class="tool-name">HMMER</div>
+                    <span class="tool-type">Profile Hidden Markov Models</span>
+                </div>
+            </div>
+            <p class="tool-description">
+                HMMER is a tool for searching sequence databases for homologous sequences using profile hidden Markov models. I use it for protein family identification and functional annotation.
+            </p>
+            <div class="tool-features">
+                <h4>Key Applications:</h4>
+                <ul class="features-list">
+                    <li>Protein family identification</li>
+                    <li>Functional annotation of sequences</li>
+                    <li>Domain prediction</li>
+                    <li>Phylogenetic analysis preparation</li>
+                </ul>
+            </div>
+            <div class="code-example" data-language="bash">
+# HMMER search against a protein database
+hmmscan --tblout results.txt my_model.hmm protein_database.fasta
+# HMMER search with specific parameters
+hmmscan --cpu 4 --domtblout results.txt my_model.hmm protein_database.fasta
+            </div>
+            <div class="tool-links">
+                <a href="http://hmmer.org/" class="tool-link">HMMER</a>
+                <a href="#" class="tool-link">My HMMER Scripts</a>
+            </div>
+        </div>
+    </div> <!--End of tools-grid -->
+</div>

@@ -1,0 +1,107 @@
+<div class="tool-category" id="machine-learning">
+        <div class="category-header">
+            <h2>Machine Learning in Biology</h2>
+            <p>ML algorithms and frameworks applied to biological problems and data analysis.</p>
+        </div>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div>
+                        <div class="tool-name">Scikit-learn for Genomics</div>
+                        <span class="tool-type">Machine Learning</span>
+                    </div>
+                </div>
+                <p class="tool-description">
+                    Applying classical ML algorithms to genomic data for classification, clustering, and dimensionality reduction tasks.
+                </p>
+                <div class="tool-features">
+                    <h4>Applications:</h4>
+                    <ul class="features-list">
+                        <li>Gene expression classification</li>
+                        <li>Genomic variant effect prediction</li>
+                        <li>Principal component analysis</li>
+                        <li>Feature selection for biomarkers</li>
+                    </ul>
+                </div>
+                <div class="code-example" data-language="python">
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_score
+import pandas as pd
+
+# Load genomic features
+data = pd.read_csv("genomic_features.csv")
+X = data.drop(['sample_id', 'phenotype'], axis=1)
+y = data['phenotype']
+
+# Train random forest classifier
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+scores = cross_val_score(rf, X, y, cv=5)
+print(f"CV Accuracy: {scores.mean():.3f} (+/- {scores.std() * 2:.3f})")
+
+# Feature importance analysis
+rf.fit(X, y)
+feature_importance = pd.DataFrame({
+'feature': X.columns,
+'importance': rf.feature_importances_
+}).sort_values('importance', ascending=False)
+                </div>
+                <div class="tool-links">
+                    <a href="https://scikit-learn.org/" class="tool-link">Scikit-learn</a>
+                    <a href="#" class="tool-link">ML Examples</a>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div>
+                        <div class="tool-name">TensorFlow/Keras for Deep Learning</div>
+                        <span class="tool-type">Deep Learning</span>
+                    </div>
+                </div>
+                <p class="tool-description">
+                    Deep learning frameworks for complex biological sequence analysis, including DNA/protein sequence classification and generation.
+                </p>
+                <div class="tool-features">
+                    <h4>Projects:</h4>
+                    <ul class="features-list">
+                        <li>DNA sequence motif detection</li>
+                        <li>Protein function prediction</li>
+                        <li>Drug-target interaction modeling</li>
+                        <li>Gene expression prediction</li>
+                    </ul>
+                </div>
+                <div class="code-example" data-language="python">
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# CNN for DNA sequence classification
+def create_dna_classifier(sequence_length, num_classes):
+model = models.Sequential([
+layers.Conv1D(32, 8, activation='relu', input_shape=(sequence_length, 4)),
+layers.MaxPooling1D(2),
+layers.Conv1D(64, 8, activation='relu'),
+layers.MaxPooling1D(2),
+layers.Flatten(),
+layers.Dense(64, activation='relu'),
+layers.Dropout(0.5),
+layers.Dense(num_classes, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+        loss='categorical_crossentropy',
+        metrics=['accuracy'])
+return model
+
+# Create and train model
+model = create_dna_classifier(1000, 2)
+model.summary()
+                </div>
+                <div class="tool-links">
+                    <a href="https://tensorflow.org/" class="tool-link">TensorFlow</a>
+                    <a href="#" class="tool-link">DL Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
