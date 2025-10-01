@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Bioinformatics Portfolio</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="projects.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="../../index.html" class="logo">BioPortfolio</a>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="../tools/tools.html">Tools</a></li>
+                    <li><a href="projects.html" class="active">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>My Projects</h1>
+            <p>Explore my bioinformatics and computational biology projects, from genome analysis to machine learning applications.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Search -->
+        <div class="search-filter">
+            <input type="text" class="search-input" placeholder="Search projects by name, description, or technology..." id="searchInput">
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be loaded here dynamically -->
+        </div>
+    </div>
+</body>
+<script src="projects.js"></script>
+</html>

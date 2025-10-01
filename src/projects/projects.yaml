@@ -1,0 +1,30 @@
+projects:
+  - id: functional-annotation-predictor
+    title: Functional Annotation Predictor
+    description: Two machine learning models that predicts gene functions based on sequence and structural features. Trained on curated human proteins from deepseq project. Structural data was extracted from AlphaFold2 database.  
+    image: ../images/projects/genome-assembly.jpg
+    technologies:
+      - Python
+      - Scikit-learn
+      - TensorFlow
+      - Keras
+      - AlphaFold2
+      - Matplotlib
+    links:
+      github: https://github.com/sacortesro/functionalAnnotationPredictor
+      # documentation: https://genome-assembly-docs.example.com
+
+  - id: rna-seq-analysis
+    title: RNA-Seq Differential Expression Analysis
+    description: Comprehensive RNA-Seq analysis workflow for identifying differentially expressed genes across multiple conditions. Includes quality control, alignment, quantification, and statistical analysis with visualization.
+    image: ../images/projects/rnaseq.jpg
+    technologies:
+      - R
+      - DESeq2
+      - edgeR
+      - FastQC
+      - STAR
+      - ggplot2
+    links:
+      github: https://github.com/yourusername/rnaseq-pipeline
+      report: https://rnaseq-report.example.com
