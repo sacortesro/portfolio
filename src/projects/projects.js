@@ -34,7 +34,7 @@ function renderProjects(projects) {
                 return;
             }
             const projectId = card.dataset.projectId;
-            navigateToProject(projectId);
+            // navigateToProject(projectId);
         });
     });
 }
@@ -70,10 +70,10 @@ function createProjectCard(project) {
     `;
 }
 
-// Navigate to project detail page
-function navigateToProject(projectId) {
-    window.location.href = `project-detail.html?id=${projectId}`;
-}
+// // Navigate to project detail page
+// function navigateToProject(projectId) {
+//     window.location.href = `project-detail.html?id=${projectId}`;
+// }
 
 // Show empty state
 function showEmptyState(message) {
